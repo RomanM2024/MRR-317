@@ -1363,7 +1363,7 @@ import random
 # print(a)
 
 # -------29.01.24--------
+print("Hello world")
 
-# print("Данные для добавление на GitHub")
 
 
