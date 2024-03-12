@@ -1,26 +1,42 @@
-# ДЗ похожее с Юлией!!!
 
-# def input_info(self, first_name, birthday, phone, country, city, address):
-#     def set_name(self, name):  # установить имя
+class Car:
 
-#         self.name = name
-#
-#     def get_name(self):  # получить имя
-#         return self.name
-#
-#     def set_birthday(self, birthday):  # установить дату рождения
-#         self.birthday = birthday
-#
-#     def get_birthday(self):  # получить ДР
-#         return self.birthday
+    def __init__(self, model_name, year_of_release, manufacturer, engine_power, colour, price):
+        self.model_name = model_name
+        self.year_of_release = year_of_release
+        self.manufacturer = manufacturer
+        self.engine_power = engine_power
+        self.colour = colour
+        self.price = price
 
-# h1 = Human()
-# h1.print_info()
-# h1.input_info("Юля", "23.05.1986", "45-46-98", "Россия", "Москва", "Чистопрудный бульвар, 1A")
-# h1.print_info()
-# h1.set_name("Юлия")
-# print(h1.get_name())
-# h1.set_birthday("23.12.1990")
-# print(h1.get_birthday())
-# h1.print_info()
+    def printer(self):
+        print(self.model_name)
+        print(self.year_of_release)
+        print(self.manufacturer)
+        print(self.engine_power)
+        print(self.colour)
+        print(self.price)
+
+
+def __init__(self, model_name, year_of_release, manufacturer, engine_power, colour, price):
+    def set_model_name(self, model_name):
+        self.model_name = model_name
+
+    def get_model_name(self):
+        return self.model_name
+
+    def set_year_of_release(self, year_of_release):
+        self.year_of_release = year_of_release
+
+    def get_year_of_release(self):
+        return self.year_of_release
+
+
+if __name__ == '__main__':
+    auto = Car("X7 M50i", "2021", "BMW", "530 л.с.", "white", "10790000")
+    auto.printer()
+
+
+
+
 
