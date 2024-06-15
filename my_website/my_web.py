@@ -6,7 +6,11 @@ app.config['SECRET_KEY'] = 'os.urandom(256)'
 menu = [
     {'name': 'Домашняя страница', 'url': 'index'},
     {'name': 'О сайте', 'url': 'about'},
-    {'name': 'Обратная связь', 'url': 'contact'}
+    {'name': 'Оставить отзыв', 'url': 'comments'},
+    {'name': 'Обратная связь', 'url': 'contact'},
+    {'name': 'Авторизация', 'url': 'login'},
+    {'name': "Выйти из аккаунта", "url": "logout"}
+
 ]
 
 
@@ -28,9 +32,32 @@ def profile(username):
     return f"Пользователь: {username}"
 
 
+@app.route('/comments', methods=['POST', 'GET'], endpoint='comments')
+def comments_view():
+    if 'comments' not in session:
+        session['comments'] = []
+
+    if request.method == 'POST':
+        comment_text = request.form['comment']
+        username = request.form['username']
+
+        if len(comment_text) > 0 and len(username) > 2:
+            comment_id = len(session['comments'])
+            session['comments'].append({'id': comment_id, 'username': username, 'comment': comment_text})
+            flash('Комментарий успешно добавлен', 'success')
+        else:
+            flash('Ошибка добавления комментария', 'error')
+
+        print(session)
+
+    background_image_url = 'https://img.freepik.com/free-photo/christmas-travel-concept-with-laptop_23-2149573078.jpg?t=st=1718446088~exp=1718449688~hmac=6255cd1f4cca722069317f9b5b20249a7ef13f887f43bafbe9e502ba6a8566a0&w=996'
+    return render_template('comments.html', background_image_url=background_image_url, title='Комментарии', menu=menu,
+                           comments=session['comments'])
+
+
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
-    background_image_url = 'https://img.freepik.com/free-photo/top-view-white-toy-plane-and-map_23-2148666303.jpg?w=900&t=st=1717958641~exp=1717959241~hmac=a5ea16704396603e8ee3ce7a7978c5365963014f99cf0880080921bf8b910339'
+    background_image_url = 'https://img.freepik.com/free-photo/flat-lay-hat-notebook-arrangement_23-2148786126.jpg?t=st=1718445793~exp=1718449393~hmac=f903cf5ff1f85bc0bf2580b907f3d7d7f1e154ae68c7d5afd283ffd0540bf670&w=1060'
     if request.method == 'POST':
         if len(request.form['username']) > 2:
             flash("Сообщение отправлено успешно", category='success')
@@ -47,7 +74,7 @@ def page_not_found(error):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    background_image_url = 'https://irbis39.ru/upload/medialibrary/82f/82f57c366d7ca36b0eb0e6858e86e76e.gif'
+    background_image_url = 'https://img.freepik.com/free-photo/traveling-items-wooden-background_23-2148909611.jpg?t=st=1718446866~exp=1718450466~hmac=773a950adf947f338f1f14113de7198c4b89424f985e7fa0bacb2677e321c2fe&w=826'
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['psw']
@@ -64,6 +91,12 @@ def login():
         return render_template('login.html', background_image_url=background_image_url, success_message=success_message, menu=menu)
     else:
         return render_template('login.html', background_image_url=background_image_url, menu=menu)
+
+
+@app.route("/logout")
+def logout():
+    session.pop('userLogged', None)
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
