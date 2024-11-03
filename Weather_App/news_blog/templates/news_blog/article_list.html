@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список статей</title>
+    <link rel="stylesheet" href="{% static 'news_blog/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Статьи</h1>
+
+        {% for article in articles %}
+        <div class="article-card">
+            <h2 class="article-title">{{ article.title }}</h2>
+            <p class="article-excerpt">{{ article.excerpt }}</p>
+            <a href="{% url 'article_detail' article.id %}" class="read-more-btn">Читать дальше</a>
+        </div>
+        {% empty %}
+        <p>Нет доступных статей.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+
+
